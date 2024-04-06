@@ -82,6 +82,11 @@ class TarifDeleteApi(APIView):
 
 
 class TarifEditApi(APIView):
+    def get(self, request, pk):
+        tariflar = Tarif.objects.get(id=pk)
+        serializer = TarifSerializers(tariflar)
+        return Response(serializer.data)
+
     def put(self, request, pk):
         tarif = Tarif.objects.filter(id=pk)
         serializer = TarifSerializers(tarif.first(), data=request.data)
